@@ -1,24 +1,22 @@
 ---
-title: "run_query"
+title: "About run_query macro"
+sidebar_label: "run_query"
 id: "run_query"
+description: "Use `run_query` macro to run queries and fetch results."
 ---
 
-The `run_query` macro provides a convenient way to run queries and fetch their results. It is a wrapper around the [statement block](statement-blocks), which is more flexible, but also more complicated to use.
+The `run_query` macro provides a convenient way to run queries and fetch their results. It is a wrapper around the [statement block](/reference/dbt-jinja-functions/statement-blocks), which is more flexible, but also more complicated to use.
 
 __Args__:
  * `sql`: The SQL query to execute
 
-Returns a [Table](https://agate.readthedocs.io/page/api/table.html) object with the result of the query. If the specified query does not return results (eg. a DDL, DML, or maintenance query), then the return value will be `none`.
+Returns a [Table](https://agate.readthedocs.io/page/api/table.html) object with the result of the query. If the specified query does not return results (eg. a <Term id="ddl" />, <Term id="dml" />, or maintenance query), then the return value will be `none`.
 
 **Note:** The `run_query` macro will not begin a transaction automatically - if you wish to run your query inside of a transaction, please use `begin` and `commit ` statements as appropriate.
 
-
 :::info Using run_query for the first time?
-
-Check out the tutorial on [using Jinja](using-jinja#dynamically-retrieve-the-list-of-payment-methods) for an example of working with the results of the `run_query` macro!
-
+Check out the section of the Getting Started guide on [using Jinja](/guides/using-jinja#dynamically-retrieve-the-list-of-payment-methods) for an example of working with the results of the `run_query` macro!
 :::
-
 
 **Example Usage:**
 
@@ -99,3 +97,17 @@ You can also use `run_query` to perform SQL queries that aren't select statement
 ```
 
 </File>
+
+
+Use the `length` filter to verify whether `run_query` returned any rows or not.  Make sure to wrap the logic in an [if execute](/reference/dbt-jinja-functions/execute) block to avoid unexpected behavior during parsing. 
+
+```sql
+{% if execute %}
+{% set results = run_query(payment_methods_query) %}
+{% if results|length > 0 %}
+  	-- do something with `results` here...
+{% else %}
+    -- do fallback here...
+{% endif %}
+{% endif %}
+```

@@ -1,6 +1,8 @@
 ---
-title: "execute"
+title: "About execute variable"
+sidebar_label: "execute"
 id: "execute"
+description: "Use `execute` to return True when dbt is in 'execute' mode."
 ---
 
 `execute` is a Jinja variable that returns True when dbt is in "execute" mode.
@@ -38,7 +40,7 @@ Compilation Error in model order_payment_methods (models/order_payment_methods.s
   'None' has no attribute 'table'
 
 ```
-This is because Line #11 assumes that a table has been returned, when, during the parse phase, this query hasn't been run.
+This is because Line #11 assumes that a <Term id="table" /> has been returned, when, during the parse phase, this query hasn't been run.
 
 To work around this, wrap any problematic Jinja in an `{% if execute %}` statement:
 

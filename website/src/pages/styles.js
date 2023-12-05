@@ -1,22 +1,13 @@
 
 import React from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
-import classnames from 'classnames';
-
-import {MDXProvider} from '@mdx-js/react';
-import MDXComponents from '@theme/MDXComponents';
 import CodeBlock from '@theme/CodeBlock';
-
 import Changelog from '@site/src/components/changelog';
 import CloudCore from '@site/src/components/cloudcore';
 import Collapsible from '@site/src/components/collapsible';
-import FAQList from '@site/src/components/faqList';
 import FAQ from '@site/src/components/faqs';
 import File from '@site/src/components/file';
 import Lightbox from '@site/src/components/lightbox';
-import Link from '@site/src/components/link';
 import LoomVideo from '@site/src/components/loom';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -37,11 +28,11 @@ function Styles() {
                 <h1>Linked Markdown Code Blocks</h1>
 <pre>{`
 \`\`\`
-[view the license](license)
+[view the intro](docs/introduction)
 \`\`\`
 `}</pre>
             <CodeBlock>
-[view the license](license)
+[view the intro](docs/introduction)
             </CodeBlock>
             <br/>
             <p>Use a backslash to escape linking:</p>
@@ -104,9 +95,9 @@ description: "this is \[an escaped link](docs.getdbt.com)"
 
             <div className='section' style={{marginTop: '40px'}}>
                 <h1>FAQ</h1>
-<pre>{`<FAQ src='sql-errors' alt_header="a header" />`}</pre>
-                <FAQ src='sql-errors' />
-                <FAQ src='sql-errors' alt_header="an overriden header" />
+<pre>{`<FAQ path='Troubleshooting/sql-errors' alt_header="a header" />`}</pre>
+                <FAQ path='Troubleshooting/sql-errors' />
+                <FAQ path='Troubleshooting/sql-errors' alt_header="an overriden header" />
             </div>
 
             <div className='section' style={{marginTop: '40px'}}>
@@ -129,39 +120,13 @@ password: hunter2
 
             <div className='section' style={{marginTop: '40px'}}>
                 <h1>Lightbox</h1>
-                <pre>{`<Lightbox src="/img/dbt-logo-full.png" title="The dbt logo" />`}</pre>
-                <Lightbox src="/img/dbt-logo-full.png" title="The dbt logo" />
+                <pre>{`<Lightbox src="/img/dbt-logo.svg" title="The dbt logo" />`}</pre>
+                <Lightbox src="/img/dbt-logo.svg" title="The dbt logo" />
             </div>
 
             <div className='section' style={{marginTop: '40px'}}>
-                <h1>Markdown Link</h1>
-Links to pages can be specified using:
-<li>Just the <code>id</code>¹ of the document, if the <code>id</code> is unique. Note: the <code>id</code> may be specified in the YAML front-matter of a document. If not, then it defaults to the filename.</li>
-<li>A relative <code>id</code> of the document. Note: this is required when two documents have the same <code>id</code>.</li>
-<li>Or, a path to the document (with <code>.md</code> file extension), relative to the <code>website/docs/</code> directory. Note: this is <em>required</em> for pages where the <code>id</code> looks like a filename (e.g. <code>profiles.yml</code>)</li>
-<br/>
-Bad links will appear with red underlines when building locally, and will cause an error in a deploy preview.
-<br/>
-<pre>{`[link to unique id](available-adapters)
-[disambiguated link to duplicate id](dbt-cli/installation)
-[second disambiguated link to duplicate id](on-premises/installation)
-[file paths work too](dbt-cli/installation.md)
-[link to document where id looks like a filename](reference/profiles.yml.md)
-[a bad link](bad-link)
-`}</pre>
-
-                <Link href="available-adapters">link to unique id</Link>
-                <br />
-                <Link href="dbt-cli/installation">disambiguated link to duplicate id</Link>
-                <br />
-                <Link href="on-premises/installation">second disambiguated link to duplicate id</Link>
-                <br />
-                <Link href="dbt-cli/installation.md">file paths work too</Link>
-                <br />
-                <Link href="docs/reference/profiles.yml.md">link to document where id looks like a file</Link>
-                <br />
-                <Link href="bad-link" ignoreInvalid={true}>a bad link</Link>
-
+                <h1>Markdown Links</h1>
+                  Refer to the <a href="https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/content-style-guide.md#Links" target="_blank" rel="noreferrer">Links section</a> of the Content Style Guide to read about how you can use links in the dbt product documentation.
             </div>
 
             <div className='section' style={{marginTop: '40px'}}>

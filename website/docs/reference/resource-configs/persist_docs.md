@@ -1,5 +1,6 @@
 ---
 id: "persist_docs"
+description: "Persist_docs - Read this in-depth guide to learn about configurations in dbt."
 datatype: Dict[Str, Bool]
 ---
 
@@ -20,7 +21,7 @@ datatype: Dict[Str, Bool]
 
 ```yml
 models:
-  [<resource-path>](resource-path):
+  [<resource-path>](/reference/resource-configs/resource-path):
     +persist_docs:
       relation: true
       columns: true
@@ -57,7 +58,7 @@ This config is not implemented for sources.
 
 ```yml
 seeds:
-  [<resource-path>](resource-path):
+  [<resource-path>](/reference/resource-configs/resource-path):
     +persist_docs:
       relation: true
       columns: true
@@ -74,7 +75,7 @@ seeds:
 
 ```yml
 snapshots:
-  [<resource-path>](resource-path):
+  [<resource-path>](/reference/resource-configs/resource-path):
     +persist_docs:
       relation: true
       columns: true
@@ -106,31 +107,52 @@ select ...
 
 ## Definition
 
-Optionally persist [resource descriptions](resource-properties/description) as
+Optionally persist [resource descriptions](/reference/resource-properties/description) as
 column and relation comments in the database. By default, documentation
 persistence is disabled, but it can be enabled for specific resources or groups of
 resources as needed.
 
-<Changelog>
-
- - Support for this config on Redshift, Postgres, and Snowflake is new in 0.17.0
- - Support for column-level docs persistence is new for all databases in 0.17.0
-
-</Changelog>
-
 ## Support
 
-The `persist_docs` config is supported on all core dbt plugins: BigQuery,
-Redshift, Snowflake, and Postgres. Some databases impose limitations on the
-types of descriptions that can be added to database objects. At present, the
-`persist_docs` flag has the following known limitations:
- - Column-level comments are not supported on Snowflake views
+The `persist_docs` config is supported on the most widely used dbt adapters:
+- Postgres
+- Redshift
+- Snowflake
+- BigQuery
+- Databricks 
+- Apache Spark
+
+However, some databases limit where and how descriptions can be added to database objects. Those database adapters might not support `persist_docs`, or might offer only partial support.
+
+Some known issues and limitations:
+
+<WHCode>
+
+<div warehouse="Databricks">
+
+- Column-level comments require `file_format: delta` (or another "v2 file format")
+- Column-level comments aren't supported for models materialized as <Term id="view">views</Term> ([issue](https://github.com/dbt-labs/dbt-spark/issues/372))
+
+
+</div>
+
+<div warehouse="Snowflake">
+
+<VersionBlock firstVersion="1.2">
+
+- No known issues
+
+</VersionBlock>
+
+</div>
+
+</WHCode>
 
 ## Usage
 
 ### Documenting columns and relations
 
-Supply a [description](resource-properties/description) for a model:
+Supply a [description](/reference/resource-properties/description) for a model:
 
 <File name='models/schema.yml'>
 

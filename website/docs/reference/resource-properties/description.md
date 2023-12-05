@@ -63,7 +63,7 @@ sources:
 
 <TabItem value="seeds">
 
-<File name='data/schema.yml'>
+<File name='seeds/schema.yml'>
 
 ```yml
 version: 2
@@ -157,13 +157,13 @@ A user-defined description. Can be used to document:
 - analyses, and analysis columns
 - macros, and macro arguments
 
-These descriptions are used in the documentation website rendered by dbt (see [the documentation guide](documentation)).
+These descriptions are used in the documentation website rendered by dbt (see [the documentation guide](/docs/collaborate/documentation)).
 
-Descriptions can include markdown, as well as the [`doc` jinja function](doc).
+Descriptions can include markdown, as well as the [`doc` jinja function](/reference/dbt-jinja-functions/doc).
 
 :::caution You may need to quote your YAML
 
-Be mindful of YAML semantics when providing a description. If your description contains special yaml characters like curly brackets, colons, or square brackets, you may need to quote your description. An example of a quoted description is shown [below](#use-some-markdown-in-a-description).
+Be mindful of YAML semantics when providing a description. If your description contains special YAML characters like curly brackets, colons, or square brackets, you may need to quote your description. An example of a quoted description is shown [below](#use-some-markdown-in-a-description).
 
 :::
 
@@ -201,7 +201,7 @@ models:
   - name: dim_customers
     description: >
       One record per customer. Note that a customer must have made a purchase to
-      be included in this table — customer accounts that were created but never
+      be included in this <Term id="table" /> — customer accounts that were created but never
       used have been filtered out.
 
     columns:
@@ -235,7 +235,7 @@ models:
 
 ### Use a docs block in a description
 
-If you have a long description, especially if it contains markdown, it may make more sense to leverage a [`docs` block](doc). A benefit of this approach is that code editors will correctly highlight markdown, making it easier to debug as you write.
+If you have a long description, especially if it contains markdown, it may make more sense to leverage a [`docs` block](/reference/dbt-jinja-functions/doc). A benefit of this approach is that code editors will correctly highlight markdown, making it easier to debug as you write.
 
 <File name='models/schema.yml'>
 
@@ -306,8 +306,8 @@ models:
 
 ### Include an image from your repo in your descriptions
 To include an image from your repository in your descriptions:
-1. Add the file in a subdirectory, e.g. `assets/dbt-logo.png`
-2. Set the [`asset-paths` config](project-configs/asset-paths) in your `dbt_project.yml` file so that this directory gets copied to the `target/` directory as part of `dbt docs generate`
+1. Add the file in a subdirectory, e.g. `assets/dbt-logo.svg`
+2. Set the [`asset-paths` config](/reference/project-configs/asset-paths) in your `dbt_project.yml` file so that this directory gets copied to the `target/` directory as part of `dbt docs generate`
 
 <File name='dbt_project.yml'>
 
@@ -326,7 +326,7 @@ version: 2
 
 models:
   - name: customers
-    description: "!\[dbt Logo](assets/dbt-logo.png)"
+    description: "!\[dbt Logo](assets/dbt-logo.svg)"
 
     columns:
       - name: customer_id
@@ -342,7 +342,7 @@ _[CLI users only]_
 
 4. Run `dbt docs serve` — the image will be rendered as part of your project documentation:
 
-<Lightbox src="/img/reference/image-in-docs.png" title="The image at assets/dbt-logo.png is rendered correctly"/>
+<Lightbox src="/img/reference/image-in-docs.png" title="The image at assets/dbt-logo.svg is rendered correctly"/>
 
 If mixing images and text together, also consider using a docs block.
 
@@ -357,7 +357,7 @@ version: 2
 
 models:
   - name: customers
-    description: "!\[dbt Logo](https://raw.githubusercontent.com/dbt-labs/dbt/develop/etc/dbt-logo-full.svg)"
+    description: "!\[dbt Logo](https://github.com/dbt-labs/dbt-core/blob/main/etc/dbt-core.svg)"
 
     columns:
       - name: customer_id
@@ -369,25 +369,3 @@ models:
 
 If mixing images and text together, also consider using a docs block.
 
-
-
-### Use html in a description
-
-You can use html in the description to do fancier things than you can in just markdown. Embedding iframes work too! It is recomended you do this in a docs block for ease of maintenance. 
-
-
-<File name='models/docs.md'>
-
-```
-
-{% docs orders_status %}
-
-Here is an image documenting the ERD for this table:
-
-<div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://your-embed-url.com"></iframe></div>
-
-{% enddocs %}
-
-```
-
-</File>

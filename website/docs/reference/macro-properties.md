@@ -1,12 +1,13 @@
 ---
 title: Macro properties
+id: macro-properties
 ---
 
-Macro properties can be declared in `.yml` files in:
-- your `macros/` directory (as defined by the [`macro-paths` config](macro-paths))
-- your `models/` directory (as defined by the [`source-paths` config](source-paths))
+import PropsCallout from '/snippets/_config-prop-callout.md';
 
-You can name these files `whatever_you_want.yml`, and nest them arbitrarily deeply in subfolders within the `macros/` or `models/` directory.
+Macro properties can be declared in any `properties.yml` file. <PropsCallout title={frontMatter.title}/> 
+
+You can name these files `whatever_you_want.yml` and nest them arbitrarily deep in sub-folders.
 
 <File name='macros/<filename>.yml'>
 
@@ -15,13 +16,13 @@ version: 2
 
 macros:
   - name: <macro name>
-    [description](description): <markdown_string>
-    [docs](resource-properties/docs):
+    [description](/reference/resource-properties/description): <markdown_string>
+    [docs](/reference/resource-configs/docs):
       show: true | false
     arguments:
       - name: <arg name>
-        [type](argument-type): <string>
-        [description](description): <markdown_string>
+        [type](/reference/resource-properties/argument-type): <string>
+        [description](/reference/resource-properties/description): <markdown_string>
       - ... # declare properties of additional arguments
 
   - name: ... # declare properties of additional macros
@@ -29,9 +30,3 @@ macros:
 ```
 
 </File>
-
-<Changelog>
-
-* `v0.16.0`: The ability to declare macro properties was introduced.
-
-</Changelog>

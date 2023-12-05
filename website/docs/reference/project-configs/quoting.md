@@ -1,5 +1,8 @@
 ---
+title: "Configuring quoting in projects"
+sidebar_label: "quoting"
 datatype: boolean # -ish, it's actually a dictionary of bools
+description: "Read this guide to understand the quoting configuration in dbt."
 default: true
 ---
 <File name='dbt_project.yml'>
@@ -25,13 +28,6 @@ Note that for BigQuery quoting configuration, `database` and `schema` should be 
 
 :::
 
-<Changelog>
-
-* `v0.10.1`: This configuration was introduced with a default value of `true` for each adapter.
-* `v0.11.0`: The default quoting config on Snowflake changed from `true` to `false`
-
-</Changelog>
-
 ## Default
 
 The default values vary by database.
@@ -46,8 +42,9 @@ The default values vary by database.
 
 For most adapters, quoting is set to `true` by default.
 
-This is because creating relations with quoted identifiers does not inhibit the ability to select from them, and quoting allows you to use reserved words as object names (though that should probably be avoided)
-<File name='dbt_project.yml'>
+Why? It's equally easy to select from relations with quoted or unquoted identifiers. Quoting allows you to use reserved words and special characters in those identifiers, though we recommend avoiding this whenever possible.
+
+  <File name='dbt_project.yml'>
 
 ```yml
 quoting:
@@ -63,7 +60,7 @@ quoting:
 
 On Snowflake, quoting is set to `false` by default.
 
-This is because creating relations with quoted identifiers inhibits your ability to select from the them.
+Creating relations with quoted identifiers also makes those identifiers case sensitive. It's much more difficult to select from them. You can re-enable quoting for relations identifiers that are case sensitive, reserved words, or contain special characters, but we recommend you avoid this as much as possible.
 
 <File name='dbt_project.yml'>
 
@@ -107,6 +104,10 @@ create table analytics.dbt_alice.dim_customers
 
 ### Snowflake
 Set all quoting configs to `False`. This means that you cannot use reserved words as identifiers, however it's usually a good idea to avoid these reserved words anyway.
+
+If a Snowflake source table uses a quoted database, schema, or table identifier, you can configure it in the source.yml file. [Refer to configuring quoting for more info](/reference/resource-properties/quoting).
+
+
 
 #### Explanation:
 

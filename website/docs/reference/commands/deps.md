@@ -1,15 +1,10 @@
 ---
-title: "deps"
+title: "About dbt deps command"
+sidebar_label: "deps"
 id: "deps"
 ---
 
-`dbt deps` pulls the most recent version of the dependencies listed in your `packages.yml` from git. See [Package-Management](package-management) for more information.
-
-<Changelog>
-
-- **v0.21.0**: dbt package version comparison logging is new!
-
-</Changelog>
+`dbt deps` pulls the most recent version of the dependencies listed in your `packages.yml` from git. See [Package-Management](/docs/build/packages) for more information.
 
 Where relevant, dbt will display up to date and/or latest versions of packages that are listed on dbt Hub. Example below.
 
@@ -19,8 +14,8 @@ Where relevant, dbt will display up to date and/or latest versions of packages t
 packages:
   - package: dbt-labs/dbt_utils
     version: 0.7.1
-  - package: tailsdotcom/dbt_artifacts
-    version: 0.5.0-a1
+  - package: brooklyn-data/dbt_artifacts
+    version: 1.2.0
     install-prerelease: true
   - package: dbt-labs/codegen
     version: 0.4.0
@@ -39,9 +34,8 @@ packages:
 Installing dbt-labs/dbt_utils@0.7.1
   Installed from version 0.7.1
   Up to date!
-Installing tailsdotcom/dbt_artifacts@0.5.0a1
-  Installed from version 0.5.0a1
-  Updated version available: 0.5.0
+Installing brooklyn-data/dbt_artifacts@1.2.0
+  Installed from version 1.2.0
 Installing dbt-labs/codegen@0.4.0
   Installed from version 0.4.0
   Up to date!
@@ -63,3 +57,31 @@ Installing calogica/dbt_date@0.4.0
 Updates available for packages: ['tailsdotcom/dbt_artifacts', 'dbt-labs/snowplow']
 Update your versions in packages.yml, then run dbt deps
 ```
+
+<VersionBlock firstVersion="1.7">
+
+dbt generates the `package-lock.yml` file in the _project_root_ where `packages.yml` is recorded, which contains all the resolved packages, the first time you run `dbt deps`. Each subsequent run records the packages installed in this file. If the subsequent `dbt deps` runs contain no updated packages in `dependencies.yml` or `packages.yml`, dbt-core installs from `package-lock.yml`. 
+
+When you update the package spec and run `dbt deps` again, the package-lock and package files update accordingly. You can run `dbt deps --lock` to update the `package-lock.yml` with the most recent dependencies from `packages`.
+
+The `--add-package` flag allows you to add a package to the `packages.yml` with configurable `--version` and `--source` information. The `--dry-run` flag, when set to `False`(default), recompiles the `package-lock.yml` file after a new package is added to the `packages.yml` file. Set the flag to `True` for the changes to not persist. 
+
+Examples of the `--add-package` flag:
+```shell
+# add package from hub (--source arg defaults to "hub")
+dbt deps --add-package dbt-labs/dbt_utils@1.0.0
+
+# add package from hub with semantic version range
+dbt deps --add-package dbt-labs/snowplow@">=0.7.0,<0.8.0"
+
+# add package from git
+dbt deps --add-package https://github.com/fivetran/dbt_amplitude@v0.3.0 --source git
+
+# add package from local
+dbt deps --add-package /opt/dbt/redshift --source local
+
+# add package to packages.yml and package-lock.yml WITHOUT actually installing dependencies
+dbt deps --add-package dbt-labs/dbt_utils@1.0.0 --dry-run
+
+```
+</VersionBlock>

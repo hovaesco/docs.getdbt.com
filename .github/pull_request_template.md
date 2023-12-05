@@ -1,31 +1,26 @@
-## Description & motivation
+## What are you changing in this pull request and why?
 <!---
-Describe your changes, and why you're making them. Is this linked to an open
-issue, a pull request on dbt core, etc?
--->
+Describe your changes and why you're making them. If linked to an open
+issue or a pull request on dbt Core, then link to them here! 
 
-## To-do before merge
-<!---
-(Optional -- remove this section if not needed)
-Include any notes about things that need to happen before this PR is merged, e.g.:
-- [ ] Change the base branch
-- [ ] Ensure PR #56 is merged
+To learn more about the writing conventions used in the dbt Labs docs, see the [Content style guide](https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/content-style-guide.md).
 -->
-
-## Pre-release docs
-Is this change related to an unreleased version of dbt?
-- [ ] Yes: please
-    - update the base branch to `next`
-    - add Changelog components: `<Changelog>[New/Changed] in v0.x.0</Changelog>`
-    - add links to the "New and changed documentation" section of the latest [Migration Guide](../website/docs/docs/guides/migration-guide)
-- [ ] No: please ensure the base branch is `current`
-- [ ] Unsure: we'll let you know!
 
 ## Checklist
-If you added new pages (delete if not applicable):
-- [ ] The page has been added to `website/sidebars.js`
-- [ ] The new page has a unique filename
+<!--
+Uncomment if you're publishing docs for a prerelease version of dbt (delete if not applicable):
+- [ ] Add versioning components, as described in [Versioning Docs](https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/single-sourcing-content.md#versioning-entire-pages)
+- [ ] Add a note to the prerelease version [Migration Guide](https://github.com/dbt-labs/docs.getdbt.com/tree/current/website/docs/docs/dbt-versions/core-upgrade)
+-->
+- [ ] Review the [Content style guide](https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/content-style-guide.md) so my content adheres to these guidelines.
+- [ ] For [docs versioning](https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/single-sourcing-content.md#about-versioning), review how to [version a whole page](https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/single-sourcing-content.md#adding-a-new-version) and [version a block of content](https://github.com/dbt-labs/docs.getdbt.com/blob/current/contributing/single-sourcing-content.md#versioning-blocks-of-content).
+- [ ] Add a checklist item for anything that needs to happen before this PR is merged, such as "needs technical review" or "change base branch."
 
-If you removed existing pages (delete if not applicable):
-- [ ] The page has been removed from `website/sidebars.js`
-- [ ] An entry has been added to `_redirects`
+Adding new pages (delete if not applicable):
+- [ ] Add page to `website/sidebars.js`
+- [ ] Provide a unique filename for the new page
+
+Removing or renaming existing pages (delete if not applicable):
+- [ ] Remove page from `website/sidebars.js`
+- [ ] Add an entry `website/static/_redirects`
+- [ ] Run link testing locally with `npm run build` to update the links that point to the deleted page
